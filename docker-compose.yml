@@ -1,0 +1,9 @@
+version: '2'
+services:
+  snort:
+    build: snort/.
+    network_mode: "host"
+    environment:
+      NET_IF: br-a6138535ea2d
+    cap_add:
+      - NET_ADMIN
