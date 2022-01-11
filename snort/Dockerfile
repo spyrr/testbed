@@ -41,16 +41,18 @@ ENV SNORT_CONF="/snort/etc/snort/snort.lua"
 ENV SNORT_OUTMODE="alert_fast"
 ENV SNORT_OPT="--daq afpacket --daq-var fanout_flag=defrag"
  # DO NOT redefine SNORT_RULE
-ENV SNORT_RULE="/snort/local.rules"
+ENV SNORT_RULE="/snort/rules/local.rules"
+ENV SNORT_COMMUNITY_RULE="/snort/rules/snort3-community.rules"
 
 WORKDIR /snort
+RUN mkdir -p /snort/etc/rules
 
 # compose ping alert by default
-RUN echo "alert icmp any any <> any any (sid:10000000; msg:'PING...';)" \
-        > ${SNORT_RULE}
+COPY files/rules /snort/etc/rules
+#COPY files/snort.lua ${SNORT_CONF}
 
 # include local.rules
-RUN sed -i "s/variables = default_variables/include = \('\/snort\/local\.rules'\)/" ${SNORT_CONF}
+RUN sed -i "s/variables = default_variables/variables = default_variables,\n    include = \('\/snort\/etc\/rules\/rules\.lua'\)/" ${SNORT_CONF}
 
 COPY files/run.sh /snort/run.sh
 RUN chmod 700 /snort/run.sh
