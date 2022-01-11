@@ -5,5 +5,6 @@ services:
     network_mode: "host"
     environment:
       NET_IF: br-a6138535ea2d
+      SNORT_OUTMODE: cmg
     cap_add:
       - NET_ADMIN
