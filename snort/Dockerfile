@@ -40,15 +40,14 @@ ENV SNORT_BIN="/snort/bin/snort"
 ENV SNORT_CONF="/snort/etc/snort/snort.lua"
 ENV SNORT_OUTMODE="alert_fast"
 ENV SNORT_OPT="--daq afpacket --daq-var fanout_flag=defrag"
- # DO NOT redefine SNORT_RULE
-ENV SNORT_RULE="/snort/rules/local.rules"
-ENV SNORT_COMMUNITY_RULE="/snort/rules/snort3-community.rules"
 
 WORKDIR /snort
 RUN mkdir -p /snort/etc/rules
 
 # compose ping alert by default
 COPY files/rules /snort/etc/rules
+RUN rm /snort/etc/rules/local.rules && \
+    ln -s /rules/local.rules /snort/etc/rules/local.rules
 #COPY files/snort.lua ${SNORT_CONF}
 
 # include local.rules

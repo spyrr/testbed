@@ -2,9 +2,28 @@ version: '2'
 services:
   snort:
     build: snort/.
-    network_mode: "host"
+    network_mode: 'host'
     environment:
       NET_IF: br-a6138535ea2d
-      SNORT_OUTMODE: cmg
+      SNORT_OUTMODE: alert_fast
     cap_add:
       - NET_ADMIN
+    volumes:
+      - local_rules:/rules
+
+  suricata:
+    build: suricata/.
+    network_mode: 'host'
+    environment:
+      NET_IF: br-a6138535ea2d
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - local_rules:/rules
+
+networks:
+  testbed:
+    external: true
+
+volumes:
+  local_rules:
