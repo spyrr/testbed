@@ -35,8 +35,6 @@ RUN cd /root/suricata/suricata/suricata-update && \
     python3 setup.py install && \
     suricata-update
 
-#COPY files/local.rules /suricata/etc/suricata/rules/local.rules
-COPY files/local.rules /rules/local.rules
 RUN ln -s /rules/local.rules /var/lib/suricata/rules/local.rules
 RUN ln -s /var/lib/suricata/rules /suricata/etc/suricata/rules
 COPY files/run.sh /suricata/run.sh

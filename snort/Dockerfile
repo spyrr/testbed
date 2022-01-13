@@ -46,9 +46,7 @@ RUN mkdir -p /snort/etc/rules
 
 # compose ping alert by default
 COPY files/rules /snort/etc/rules
-RUN rm /snort/etc/rules/local.rules && \
-    ln -s /rules/local.rules /snort/etc/rules/local.rules
-#COPY files/snort.lua ${SNORT_CONF}
+RUN ln -s /rules/local.rules /snort/etc/rules/local.rules
 
 # include local.rules
 RUN sed -i "s/variables = default_variables/variables = default_variables,\n    include = \('\/snort\/etc\/rules\/rules\.lua'\)/" ${SNORT_CONF}
