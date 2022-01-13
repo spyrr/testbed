@@ -15,7 +15,7 @@ services:
     build: snort/.
     network_mode: 'host'
     environment:
-      NET_IF: br-a6138535ea2d
+      NET_IF: ${NET_IF:-docker0}
       SNORT_OUTMODE: alert_fast
     cap_add:
       - NET_ADMIN
@@ -28,7 +28,7 @@ services:
     build: suricata/.
     network_mode: 'host'
     environment:
-      NET_IF: br-a6138535ea2d
+      NET_IF: ${NET_IF:-docker0}
     cap_add:
       - NET_ADMIN
     volumes:
