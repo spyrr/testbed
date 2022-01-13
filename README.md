@@ -54,3 +54,6 @@ docker-compose exec suricata sh
 docker run -it --rm --name victim --net=testbed <some vulnerable image>
 ```
 Run vulnerable container using docker and attack the server from Kali of this container set.
+
+# Screenshot
+![Screenshot](./docs/ScreenShot.jpg "screenshot")
