@@ -1,5 +1,16 @@
+This is a testbed to compose snort/suricata rule.
+If you want to develop snort/suricata, then you can, but there is no convinience stuff for developing, vim even.
+
+This container-set consists of as follows:
+- Kali - attacker (Kalilinux:kali-rolling)
+- Snort (alpine:3.15.0)
+- Suricata (Ubuntu:impish-20220105)
+
+You can attach any victim service to testbed network with docker command.
+
 # INSTALL 
 ## Prerequisite
+Create testbed network on docker.
 ```bash
 docker network create --driver=bridge testbed
 docker network ls
@@ -37,3 +48,9 @@ kill -1 $(pidof snort)
 docker-compose exec suricata sh
 /suricata/bin/suricatasc -c ruleset-reload-nonblocking
 ```
+
+# Run vulnerable server to testbed network
+```bash
+docker run -it --rm --name victim --net=testbed <some vulnerable image>
+```
+Run vulnerable container using docker and attack the server from Kali of this container set.
