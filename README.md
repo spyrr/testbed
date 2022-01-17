@@ -37,6 +37,12 @@ vi /rules/local.rules
 ```
 
 # reload rules of snort and suricata
+```bash
+docker restart testbed_snort_1 testbed_suricata_1
+```
+
+OR 
+
 ## Snort
 ```bash
 docker-compose exec snort sh
